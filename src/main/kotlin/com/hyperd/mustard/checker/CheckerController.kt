@@ -1,7 +1,7 @@
 package com.hyperd.mustard.checker
 
+import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
-import java.util.*
 
 @RestController
 @RequestMapping("/checker")
@@ -11,8 +11,10 @@ class CheckerController(val checkerService: CheckerService) {
 	fun findAllCheckers(): Iterable<Checker> = checkerService.retrieveCheckers()
 
 	@GetMapping("/{id}")
-	fun findChecker(@PathVariable("id") id: Long): Optional<Checker> =
-			checkerService.retrieveChecker(id)
+	fun findChecker(@PathVariable("id") id: Long): ResponseEntity<Checker> {
+		val checker: Checker? = checkerService.retrieveChecker(id)
+		return checker?.let { ResponseEntity.ok(it) } ?: ResponseEntity.notFound().build<Checker>()
+	}
 
 	@PostMapping
 	fun addChecker(@RequestBody checker: Checker) = checkerService.addChecker(checker.name)

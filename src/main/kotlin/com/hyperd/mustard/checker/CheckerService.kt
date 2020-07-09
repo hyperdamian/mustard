@@ -1,7 +1,6 @@
 package com.hyperd.mustard.checker
 
 import org.springframework.stereotype.Service
-import java.util.*
 import java.util.concurrent.CopyOnWriteArrayList
 
 @Service
@@ -11,7 +10,7 @@ class CheckerService(val checkerRepository: CheckerRepository) {
 
 	fun retrieveCheckers(): Iterable<Checker> = checkerRepository.findAll()
 
-	fun retrieveChecker(id: Long): Optional<Checker> = checkerRepository.findById(id)
+	fun retrieveChecker(id: Long): Checker? = checkerRepository.findById(id).orElse(null)
 
 	fun addChecker(name: String) {
 		val checker = Checker(name)
