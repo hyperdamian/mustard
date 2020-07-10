@@ -1,7 +1,12 @@
 package com.hyperd.mustard.checker
 
 import org.springframework.http.ResponseEntity
-import org.springframework.web.bind.annotation.*
+import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PathVariable
+import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.RequestBody
+import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.RestController
 
 @RestController
 @RequestMapping("/checker")
@@ -17,6 +22,6 @@ class CheckerController(val checkerService: CheckerService) {
 	}
 
 	@PostMapping
-	fun addChecker(@RequestBody checker: Checker) = checkerService.addChecker(checker.name)
+	fun addChecker(@RequestBody checkerModel: CheckerModel) = checkerService.addChecker(checkerModel)
 
 }
